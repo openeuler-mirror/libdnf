@@ -143,8 +143,8 @@ popd
 %ldconfig_scriptlets
 
 %files -f %{name}.lang
-%license COPYING
-%doc README.md AUTHORS
+%license COPYING AUTHORS
+%doc README.md
 %doc %{_datadir}/gtk-doc/html/%{name}/
 %{_libdir}/%{name}.so.*
 

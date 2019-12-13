@@ -13,7 +13,7 @@
 
 Name:           libdnf
 Version:        0.22.0
-Release:        7
+Release:        8
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPLv2+
 URL:            https://github.com/rpm-software-management/libdnf
@@ -34,7 +34,7 @@ Requires:       libsolv%{?_isa} >= %{libsolv_version}
 %description
 A Library providing simplified C and Python API to libsolv.
 
-%package devel
+%package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libsolv-devel%{?_isa} >= %{libsolv_version}
@@ -170,5 +170,11 @@ popd
 %{python3_sitearch}/hawkey/
 
 %changelog
+* Sat Nov 9 2019 openEuler Buildteam <buildteam@openeuler.org> - 0.22.0-8
+- Type:bugfix
+- Id:NA
+- SUG:NA
+- DESC:add the release
+
 * Wed Sep 18 2019 openEuler Buildteam <buildteam@openeuler.org> - 0.22.0-7
 - Package init

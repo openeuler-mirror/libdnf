@@ -13,7 +13,7 @@
 
 Name:           libdnf
 Version:        0.22.0
-Release:        8
+Release:        9
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPLv2+
 URL:            https://github.com/rpm-software-management/libdnf
@@ -23,6 +23,10 @@ Patch0002:      0002-history-Fix-crash-in-TransactionItemaddReplacedBy.patch
 Patch0003:      0003-swdb-create-persistent-WAL-files-RhBug1640235.patch
 Patch0004:      0004-Relocate-ModuleContainer-save-hook-RhBug1632518.patch
 Patch0005:      0005-Test-if-sack-is-present-and-run-save-module-persistor-RhBug1632518.patch
+
+Patch6000:      Set-relevant-g_log-domain-handlers-instead-of-a-defa.patch
+Patch6001:      Add-a-debug-argument-to-Librepolog-addHandler.patch
+Patch6002:      Add-a-logdebug-argument-to-hawkey.Sack.patch
 
 BuildRequires:  cmake gcc gcc-c++ libsolv-devel >= %{libsolv_version} pkgconfig(librepo) pkgconfig(check)
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.46.0 pkgconfig(gtk-doc) pkgconfig(sqlite3) pkgconfig(json-c)
@@ -170,6 +174,9 @@ popd
 %{python3_sitearch}/hawkey/
 
 %changelog
+* Sat Dec 21 2019 openEuler Buildteam <buildteam@openeuler.org> - 0.22.0-9
+- Not log DEBUG messages by default (RhBug:1355764)
+
 * Sat Nov 9 2019 openEuler Buildteam <buildteam@openeuler.org> - 0.22.0-8
 - Type:bugfix
 - Id:NA

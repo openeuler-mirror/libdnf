@@ -20,7 +20,7 @@
 
 Name:                      libdnf
 Version:                   0.37.2
-Release:                   2
+Release:                   3
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
@@ -202,5 +202,8 @@ popd
 %endif
 
 %changelog
+* Tue Aug 18 2020 chenyaqiang <chenyaqiang@huawei.com> - 0.37.2-3
+- rebuild for package build
+
 * Tue Jan 7 2020 openEuler Buildteam <buildteam@openeuler.org> - 0.37.2-2 
 - Package init.

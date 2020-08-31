@@ -1,0 +1,12 @@
+diff -urNp a/python/hawkey/exception-py.hpp b/python/hawkey/exception-py.hpp
+--- a/python/hawkey/exception-py.hpp	2020-06-02 17:41:46.000000000 +0800
++++ b/python/hawkey/exception-py.hpp	2020-08-31 10:28:07.000000000 +0800
+@@ -37,7 +37,7 @@ PyObject *op_error2exc(const GError *err
+ int ret2e(int ret, const char *msg);
+ 
+ #define CATCH_TO_PYTHON_RET(RET) catch (const libdnf::Error& e) { \
+-    PyErr_Format(HyExc_Exception, e.what());                      \
++    PyErr_Format(HyExc_Exception, "%s", e.what());                      \
+     return RET;                                                   \
+ }
+ 

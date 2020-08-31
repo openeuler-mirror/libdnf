@@ -1,7 +1,7 @@
 %global libsolv_version 0.7.7
-%global libmodulemd_version 1.6.1
-%global librepo_version 1.11.0
-%global dnf_conflict 4.2.13
+%global libmodulemd_version 2.5.0
+%global librepo_version 1.12.0
+%global dnf_conflict 4.2.23
 %global swig_version 3.0.12
 
 %global requires_python2_sphinx python2-sphinx
@@ -12,25 +12,34 @@
 %bcond_with python2
 %bcond_with rhsm
 %bcond_with zchunk
-
+%bcond_with sanitizers
 
 %global _cmake_opts \\\
     -DENABLE_RHSM_SUPPORT=%{?with_rhsm:ON}%{!?with_rhsm:OFF} \\\
     %{nil}
 
 Name:                      libdnf
-Version:                   0.37.2
-Release:                   3
+Version:                   0.48.0
+Release:                   1
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
 Source0:                   %{url}/archive/%{version}/%{name}-%{version}.tar.gz                    
+
+Patch0000:                 fix-python2-no-format-arguments-error.patch
+
 BuildRequires:             cmake gcc gcc-c++ libsolv-devel >= %{libsolv_version} gettext
 BuildRequires:             pkgconfig(librepo) >= %{librepo_version} pkgconfig(check)              
 BuildRequires:             pkgconfig(gio-unix-2.0) >= 2.46.0 pkgconfig(gtk-doc) gpgme-devel
 BuildRequires:             rpm-devel >= 4.11.0 pkgconfig(sqlite3) pkgconfig(smartcols)
 BuildRequires:             pkgconfig(json-c) pkgconfig(cppunit) pkgconfig(libcrypto)
-BuildRequires:             pkgconfig(modulemd) >= %{libmodulemd_version} 
+BuildRequires:             pkgconfig(modulemd-2.0) >= %{libmodulemd_version} 
+
+%if %{with sanitizers}
+BuildRequires:             libasan-static
+BuildRequires:             liblsan-static
+BuildRequires:             libubsan-static
+%endif
 
 Requires:                  libmodulemd >= %{libmodulemd_version}
 Requires:                  libsolv >= %{libsolv_version}
@@ -108,10 +117,10 @@ Python 3 bindings for the hawkey library.
 %endif
 
 %prep
-%autosetup
+%autosetup -p1
 %if %{with python2}
 mkdir build-py2
-%endif # with python2
+%endif
 %if %{with python3}
 mkdir build-py3
 %endif
@@ -119,14 +128,16 @@ mkdir build-py3
 %build
 %if %{with python2}
 pushd build-py2
-  %cmake -DPYTHON_DESIRED:FILEPATH=%{__python2} -DWITH_MAN=OFF ../ %{!?with_zchunk:-DWITH_ZCHUNK=OFF} %{!?with_valgrind:-DDISABLE_VALGRIND=1} %{_cmake_opts}
+  %cmake -DPYTHON_DESIRED:FILEPATH=%{__python2} -DWITH_MAN=OFF ../ %{!?with_zchunk:-DWITH_ZCHUNK=OFF} %{!?with_valgrind:-DDISABLE_VALGRIND=1} %{_cmake_opts} \
+  -DWITH_SANITIZERS=%{?with_sanitizers:ON}%{!?with_sanitizers:OFF}
   %make_build
 popd
 %endif
 
 %if %{with python3}
 pushd build-py3
-  %cmake -DPYTHON_DESIRED:FILEPATH=%{__python3} -DWITH_GIR=0 -DWITH_MAN=0 -Dgtkdoc=0 ../ %{!?with_zchunk:-DWITH_ZCHUNK=OFF} %{!?with_valgrind:-DDISABLE_VALGRIND=1} %{_cmake_opts}
+  %cmake -DPYTHON_DESIRED:FILEPATH=%{__python3} -DWITH_GIR=0 -DWITH_MAN=0 -Dgtkdoc=0 ../ %{!?with_zchunk:-DWITH_ZCHUNK=OFF} %{!?with_valgrind:-DDISABLE_VALGRIND=1} %{_cmake_opts} \
+  -DWITH_SANITIZERS=%{?with_sanitizers:ON}%{!?with_sanitizers:OFF}
   %make_build
 popd
 %endif
@@ -184,7 +195,7 @@ popd
 %if %{with python2}
 %files -n python2-%{name}
 %{python2_sitearch}/%{name}/
-%endif # with python2
+%endif
 
 %if %{with python3}
 %files -n python3-%{name}
@@ -194,7 +205,7 @@ popd
 %if %{with python2}
 %files -n python2-hawkey
 %{python2_sitearch}/hawkey/
-%endif # with python2
+%endif
 
 %if %{with python3}
 %files -n python3-hawkey
@@ -202,6 +213,12 @@ popd
 %endif
 
 %changelog
+* Sat Aug 29 2020 openEuler Buildteam <buildteam@openeuler.org> - 0.48.0-1
+- Type:requirement
+- ID:NA
+- SUG:NA
+- DESC:upgrade to 0.48.0
+
 * Tue Aug 18 2020 chenyaqiang <chenyaqiang@huawei.com> - 0.37.2-3
 - rebuild for package build
 

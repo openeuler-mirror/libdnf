@@ -75,7 +75,7 @@ Obsoletes:                 platform-python-hawkey < %{version}-%{release}
 Python 3 bindings for the hawkey library.
 
 %prep
-%autosetup
+%autosetup -p1
 mkdir build-py3
 
 %build

@@ -18,11 +18,14 @@
 
 Name:                      libdnf
 Version:                   0.48.0
-Release:                   1
+Release:                   2
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
 Source0:                   %{url}/archive/%{version}/%{name}-%{version}.tar.gz                    
+
+Patch1:    CVE-2021-3445.patch
+
 BuildRequires:             cmake gcc gcc-c++ libsolv-devel >= %{libsolv_version} gettext
 BuildRequires:             pkgconfig(librepo) >= %{librepo_version} pkgconfig(check)              
 BuildRequires:             pkgconfig(gio-unix-2.0) >= 2.46.0 pkgconfig(gtk-doc) gpgme-devel
@@ -72,7 +75,7 @@ Obsoletes:                 platform-python-hawkey < %{version}-%{release}
 Python 3 bindings for the hawkey library.
 
 %prep
-%autosetup
+%autosetup -p1
 mkdir build-py3
 
 %build
@@ -117,6 +120,12 @@ popd
 %{python3_sitearch}/hawkey/
 
 %changelog
+* Tue Jun 8 2021 chxssg <chxssg@qq.com> - 0.48.0-2
+- Type:CVE
+- ID:CVE-2021-3445
+- SUG:NA
+- DESC:fix CVE-2021-3445
+
 * Tue Apr 28 2020 zhouyihang <zhouyihang3@huawei.com> - 0.48.0-1
 - Type:requirement
 - ID:NA

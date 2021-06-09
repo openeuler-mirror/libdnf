@@ -20,13 +20,14 @@
 
 Name:                      libdnf
 Version:                   0.48.0
-Release:                   1
+Release:                   2
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
 Source0:                   %{url}/archive/%{version}/%{name}-%{version}.tar.gz                    
 
-Patch0000:                 fix-python2-no-format-arguments-error.patch
+Patch0:                    fix-python2-no-format-arguments-error.patch
+Patch1:                    CVE-2021-3445.patch
 
 BuildRequires:             cmake gcc gcc-c++ libsolv-devel >= %{libsolv_version} gettext
 BuildRequires:             pkgconfig(librepo) >= %{librepo_version} pkgconfig(check)              
@@ -143,12 +144,6 @@ popd
 %endif
 
 %check
-%if %{with python2}
-pushd build-py2
-  make ARGS="-V" test
-popd
-%endif
-
 %if %{with python3}
 %if %{without python2}
 pushd build-py3
@@ -213,6 +208,12 @@ popd
 %endif
 
 %changelog
+* Tue Jun 8 2021 gaihuiying <gaihuiying@huawei.com> - 0.48.0-2
+- Type:CVE
+- ID:NA
+- SUG:NA
+- DESC:fix CVE-2021-3445 and remove python2 test
+
 * Sat Aug 29 2020 openEuler Buildteam <buildteam@openeuler.org> - 0.48.0-1
 - Type:requirement
 - ID:NA

@@ -1,7 +1,7 @@
 %global libsolv_version 0.7.7
 %global libmodulemd_version 2.5.0
 %global librepo_version 1.12.0
-%global dnf_conflict 4.2.23
+%global dnf_conflict 4.2.23-4
 %global swig_version 3.0.12
 
 %global requires_python2_sphinx python2-sphinx
@@ -20,7 +20,7 @@
 
 Name:                      libdnf
 Version:                   0.48.0
-Release:                   2
+Release:                   3
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
@@ -208,6 +208,12 @@ popd
 %endif
 
 %changelog
+* Thu Jul 22 2021 gaihuiying <gaihuiying1@huawei.com> - 0.48.0-3
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:dnf and libdnf upgrade downgrade together
+
 * Tue Jun 8 2021 gaihuiying <gaihuiying@huawei.com> - 0.48.0-2
 - Type:CVE
 - ID:NA

@@ -1,7 +1,7 @@
 %global libsolv_version 0.7.7
 %global libmodulemd_version 2.5.0
 %global librepo_version 1.12.0
-%global dnf_conflict 4.2.23
+%global dnf_conflict 4.2.23-6
 %global swig_version 3.0.12
 
 %global requires_python3_sphinx python3-sphinx
@@ -18,13 +18,13 @@
 
 Name:                      libdnf
 Version:                   0.48.0
-Release:                   2
+Release:                   3
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
 Source0:                   %{url}/archive/%{version}/%{name}-%{version}.tar.gz                    
 
-Patch1:    CVE-2021-3445.patch
+Patch1:                    CVE-2021-3445.patch
 
 BuildRequires:             cmake gcc gcc-c++ libsolv-devel >= %{libsolv_version} gettext
 BuildRequires:             pkgconfig(librepo) >= %{librepo_version} pkgconfig(check)              
@@ -120,6 +120,12 @@ popd
 %{python3_sitearch}/hawkey/
 
 %changelog
+* Thu Jul 15 2021 gaihuiying <gaihuiying1@huawei.com> - 0.48.0-3
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:dnf and libdnf upgrade downgrade together
+
 * Tue Jun 8 2021 seuzw <930zhaowei@163.com> - 0.48.0-2
 - Type:CVE
 - ID:CVE-2021-3445

@@ -1,0 +1,13 @@
+diff -ruNa libdnf-0.48.0-org/libdnf/transaction/private/Transaction.cpp libdnf-0.48.0/libdnf/transaction/private/Transaction.cpp
+--- libdnf-0.48.0-org/libdnf/transaction/private/Transaction.cpp	2021-12-07 15:39:58.903047892 +0800
++++ libdnf-0.48.0/libdnf/transaction/private/Transaction.cpp	2021-12-07 15:43:19.983719534 +0800
+@@ -169,9 +169,6 @@
+         if (i->getRepoid() != repoid) {
+             continue;
+         }
+-        if (i->getAction() != action) {
+-            continue;
+-        }
+         if (reason > i->getReason()) {
+             // use the more significant reason
+             i->setReason(reason);

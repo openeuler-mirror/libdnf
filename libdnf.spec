@@ -20,7 +20,7 @@
 
 Name:                      libdnf
 Version:                   0.48.0
-Release:                   3
+Release:                   4
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
@@ -28,7 +28,9 @@ Source0:                   %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0:                    fix-python2-no-format-arguments-error.patch
 Patch1:                    CVE-2021-3445.patch
-
+%if %{?openEuler:1}0
+Patch2:                    fix-to-avoid-add-duplicates-via-different-action.patch
+%endif
 BuildRequires:             cmake gcc gcc-c++ libsolv-devel >= %{libsolv_version} gettext
 BuildRequires:             pkgconfig(librepo) >= %{librepo_version} pkgconfig(check)              
 BuildRequires:             pkgconfig(gio-unix-2.0) >= 2.46.0 pkgconfig(gtk-doc) gpgme-devel
@@ -208,6 +210,12 @@ popd
 %endif
 
 %changelog
+* Tue Dec 07 2021 gaihuiying <gaihuiying1@huawei.com> - 0.48.0-4
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:avoid adding duplicates via different action
+
 * Thu Jul 15 2021 gaihuiying <gaihuiying1@huawei.com> - 0.48.0-3
 - Type:bugfix
 - ID:NA

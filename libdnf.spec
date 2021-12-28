@@ -1,7 +1,7 @@
 %global libsolv_version 0.7.20
 %global libmodulemd_version 2.13.0
 %global librepo_version 1.13.1
-%global dnf_conflict 4.3.0
+%global dnf_conflict 4.2.23-6
 %global swig_version 3.0.12
 
 %global requires_python3_sphinx python3-sphinx
@@ -18,7 +18,7 @@
 
 Name:                      libdnf
 Version:                   0.65.0
-Release:                   1
+Release:                   2
 Summary:                   Library providing simplified C and Python API to libsolv
 License:                   LGPLv2+
 URL:                       https://github.com/rpm-software-management/libdnf
@@ -118,6 +118,9 @@ popd
 %{python3_sitearch}/hawkey/
 
 %changelog
+* Tue Dec 28 2021 hanhui <hanhui15@huawei.com> - 0.65.0-2
+- DESC:fix libdnf upgrade failed
+
 * Sat Dec 25 2021 hanhui <hanhui15@huawei.com> - 0.65.0-1
 - DESC:upgrade to libdnf-0.65.0
 
